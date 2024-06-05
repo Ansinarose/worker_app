@@ -27,7 +27,7 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: Container(
         height: preferredSize.height,
         decoration: BoxDecoration(
-          color: backgroundImage == null ?Color.fromARGB(255, 60, 9, 70) : null,
+          color: backgroundImage == null ?Color.fromARGB(255, 27, 12, 75) : null,
           image:  backgroundImage != null ? DecorationImage(
             image: AssetImage(backgroundImage!),
             fit: BoxFit.cover)

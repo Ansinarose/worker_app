@@ -20,15 +20,15 @@ backgroundColor: AppColors.scaffoldBackgroundcolor,
                height: 400,
                width: 400, 
               decoration: BoxDecoration(
-                image: DecorationImage(image: AssetImage('assets/R.png'))
+                image: DecorationImage(image: AssetImage('assets/d6977a0d639a2ff2183e9df12823f974.jpg'),fit: BoxFit.cover)
               ),
               ),
             ),
             Text('Welcome to ',style: AppTextStyles.heading,),
             Text('ALFA Aluminium works',style: AppTextStyles.heading,),
             SizedBox(height: 20,),
-            Text('Your dream interiors, expertly fabricated and installed.',style: AppTextStyles.body,),
-            Text('Enjoy a hassle-free transformation with  our professional services',style: AppTextStyles.body,),
+            Text('Your all-in-one tool for seamless job management.',style: AppTextStyles.body,),
+            Text(' instant updates, and secure payments. Empowering you to focus on what you do best.',style: AppTextStyles.body,),
 
             SizedBox(height: 30,),
             TextButton(

@@ -5,7 +5,7 @@ import 'app_colors.dart';
 class AppButtonStyles {
   // Large button style
   static final ButtonStyle largeButton = TextButton.styleFrom(
-    foregroundColor: AppColors.textsecondaryColor, backgroundColor: AppColors.textPrimaryColor, // Button color
+    foregroundColor: AppColors.textsecondaryColor, backgroundColor: Color.fromARGB(255, 27, 12, 75), // Button color
     minimumSize: Size(200, 50), // Button size
     padding: EdgeInsets.symmetric(horizontal: 16.0),
     textStyle: TextStyle(
@@ -16,7 +16,7 @@ class AppButtonStyles {
 
   // Small button style
   static final ButtonStyle smallButton = TextButton.styleFrom(
-    foregroundColor: AppColors.textsecondaryColor, backgroundColor: AppColors.textPrimaryColor, // Button color
+    foregroundColor: AppColors.textsecondaryColor, backgroundColor:Color.fromARGB(255, 27, 12, 75), // Button color
     minimumSize: Size(150, 50), // Button size
     padding: EdgeInsets.symmetric(horizontal: 12.0),
     textStyle: TextStyle(

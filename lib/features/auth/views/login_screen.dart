@@ -24,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CurvedAppBar(
-        title: 'Affordable and high\n quality fabrication and interiros',titleTextStyle: AppTextStyles.whiteBody,
+        title: 'Congratulations!!!\n Be the part of ALFA ',titleTextStyle: AppTextStyles.whiteBody,
       ),
       backgroundColor: AppColors.scaffoldBackgroundcolor,
       body: Padding(
@@ -74,10 +74,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     return null;
                   },
                 ),
-                SizedBox(height: 20),
-            Text('Don’t have an account?            SignUp',style: AppTextStyles.body,),
+            //     SizedBox(height: 20),
+            // Text('Don’t have an account?            SignUp',style: AppTextStyles.body,),
                SizedBox(height: 20),
-                TextButton(onPressed: (){}, child: Text('SignUp'),style: AppButtonStyles.smallButton,)
+                TextButton(onPressed: (){}, child: Text('Login'),style: AppButtonStyles.smallButton,)
               // Optional: Add some spacing below the button
               ],
             ),

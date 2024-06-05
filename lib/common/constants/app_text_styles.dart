@@ -21,6 +21,10 @@ class AppTextStyles {
     color: AppColors.textsecondaryColor,
     fontSize: 16,
   );
+   static final TextStyle whitetext = TextStyle(
+    color: AppColors.textsecondaryColor,
+    fontSize: 20,
+  );
 
   // Subheading style with medium weight
   static final TextStyle subheading = TextStyle(
