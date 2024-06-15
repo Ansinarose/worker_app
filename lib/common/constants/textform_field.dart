@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -9,8 +10,9 @@ class CustomTextFormField extends StatelessWidget {
   final Color textColor;
   final Color hintColor;
   final Color borderColor;
-   final bool readOnly;
+  final bool readOnly;
   final VoidCallback? onTap;
+  final Widget? suffixIcon; // Add this line
 
   const CustomTextFormField({
     Key? key,
@@ -19,11 +21,12 @@ class CustomTextFormField extends StatelessWidget {
     this.obscureText = false,
     this.validator,
     this.prefixIcon,
-    this.textColor = const Color.fromARGB(255, 60, 9, 70),
-    this.hintColor = const Color.fromARGB(255, 60, 9, 70),
-    this.borderColor = const Color.fromARGB(255, 60, 9, 70),
+    this.textColor = const Color.fromARGB(255, 27, 12, 75),
+    this.hintColor = const Color.fromARGB(255, 27, 12, 75),
+    this.borderColor = const Color.fromARGB(255, 27, 12, 75),
     this.readOnly = false,
     this.onTap,
+    this.suffixIcon, // Add this line
   }) : super(key: key);
 
   @override
@@ -37,6 +40,7 @@ class CustomTextFormField extends StatelessWidget {
         labelText: labelText,
         labelStyle: TextStyle(color: hintColor),
         prefixIcon: prefixIcon != null ? Icon(prefixIcon, color: hintColor) : null,
+        suffixIcon: suffixIcon, // Add this line
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
           borderSide: BorderSide(color: borderColor),

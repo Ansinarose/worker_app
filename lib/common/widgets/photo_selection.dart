@@ -23,7 +23,7 @@ class _PhotoWidgetState extends State<PhotoWidget> {
             children: <Widget>[
               ListTile(
                 leading: Icon(Icons.camera_alt,color: Color.fromARGB(255, 27, 12, 75),),
-                title: Text('Camera',style: AppTextStyles.body,),
+                title: Text('Camera',style: AppTextStyles.body(context),),
                 onTap: () {
                   Navigator.pop(context);
                   _pickImage(ImageSource.camera);
@@ -31,7 +31,7 @@ class _PhotoWidgetState extends State<PhotoWidget> {
               ),
               ListTile(
                 leading: Icon(Icons.photo_album,color: Color.fromARGB(255, 27, 12, 75),),
-                title: Text('Gallery',style: AppTextStyles.body,),
+                title: Text('Gallery',style: AppTextStyles.body(context),),
                 onTap: () {
                   Navigator.pop(context);
                   _pickImage(ImageSource.gallery);
@@ -66,7 +66,7 @@ class _PhotoWidgetState extends State<PhotoWidget> {
     return Center(
       child: Column(
         children: <Widget>[
-          Text('Add Photo', style: AppTextStyles.body,),
+          Text('Add Photo', style: AppTextStyles.body(context),),
           GestureDetector(
             onTap: () => _showImageSourceActionSheet(context),
             child: Container(

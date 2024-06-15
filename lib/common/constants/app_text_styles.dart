@@ -1,50 +1,70 @@
-// lib/common/constants/app_text_styles.dart
+
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
 
 class AppTextStyles {
   // Heading style with specified font size and weight
-  static final TextStyle heading = TextStyle(
-    color: AppColors.textPrimaryColor,
-    fontSize: 24,
-    fontWeight: FontWeight.bold,
-  );
+  static TextStyle heading(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    return TextStyle(
+      color: AppColors.textPrimaryColor,
+      fontSize: screenWidth * 0.06, // Adjust font size based on screen width
+      fontWeight: FontWeight.bold,
+    );
+  }
 
   // Body text style with specified font size
-  static final TextStyle body = TextStyle(
-    color: AppColors.textPrimaryColor,
-    fontSize: 16,
-  );
+  static TextStyle body(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    return TextStyle(
+      color: AppColors.textPrimaryColor,
+      fontSize: screenWidth * 0.04, // Adjust font size based on screen width
+    );
+  }
 
   // White body text style with specified font size
-  static final TextStyle whiteBody = TextStyle(
-    color: AppColors.textsecondaryColor,
-    fontSize: 16,
-  );
-   static final TextStyle whitetext = TextStyle(
-    color: AppColors.textsecondaryColor,
-    fontSize: 20,
-  );
+  static TextStyle whiteBody(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    return TextStyle(
+      color: AppColors.textsecondaryColor,
+      fontSize: screenWidth * 0.04, // Adjust font size based on screen width
+    );
+  }
+
+  static TextStyle whitetext(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    return TextStyle(
+      color: AppColors.textsecondaryColor,
+      fontSize: screenWidth * 0.05, // Adjust font size based on screen width
+    );
+  }
 
   // Subheading style with medium weight
-  static final TextStyle subheading = TextStyle(
-    color: AppColors.textPrimaryColor,
-    fontSize: 20,
-    fontWeight: FontWeight.w600,
-  );
+  static TextStyle subheading(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    return TextStyle(
+      color: AppColors.textPrimaryColor,
+      fontSize: screenWidth * 0.05, // Adjust font size based on screen width
+      fontWeight: FontWeight.w600,
+    );
+  }
 
   // Caption style
-  static final TextStyle caption = TextStyle(
-    color: AppColors.textPrimaryColor,
-    fontSize: 12,
-  );
+  static TextStyle caption(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    return TextStyle(
+      color: AppColors.textPrimaryColor,
+      fontSize: screenWidth * 0.03, // Adjust font size based on screen width
+    );
+  }
 
   // Button text style
-  static final TextStyle button = TextStyle(
-    color: AppColors.textsecondaryColor,
-    fontSize: 16,
-    fontWeight: FontWeight.w500,
-  );
-
-  // Add more text styles as needed
+  static TextStyle button(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    return TextStyle(
+      color: AppColors.textsecondaryColor,
+      fontSize: screenWidth * 0.04, // Adjust font size based on screen width
+      fontWeight: FontWeight.w500,
+    );
+  }
 }

@@ -1,23 +1,28 @@
-// part of 'app_bloc.dart';
+   import 'package:firebase_auth/firebase_auth.dart';
 
-// @immutable
-// sealed class AppState {}
+abstract class AuthState{}
 
-// final class AppInitial extends AppState {}
-
-import 'package:equatable/equatable.dart';
-
-abstract class splashState extends Equatable{
-  const splashState();
-
-  @override
-
-  List<Object> get props => [];
+   class AuthInitial extends  AuthState{
 
 }
 
-class splashInitial extends splashState{}
+class AuthLoading extends AuthState{}
 
-class splashLoading extends splashState{}
 
-class splashLoaded extends splashState{}
+class Authenticated extends AuthState{
+
+  User? user;
+  Authenticated(this.user);
+}
+
+class UnAuthenticated extends AuthState{
+  
+}
+
+class AuthenticatedError extends AuthState{
+
+  final String message;
+
+  AuthenticatedError({required this.message});
+
+}
