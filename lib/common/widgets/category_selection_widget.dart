@@ -259,7 +259,7 @@ class _CategorySelectionWidgetState extends State<CategorySelectionWidget> {
         ),
         SizedBox(height: 10),
         Container(
-          height: mediaQuery.size.height * 0.3, // Adjust the height based on screen size
+          height: mediaQuery.size.height * 0.2, // Adjust the height based on screen size
           child: ListView.builder(
             itemCount: selectedCategories.length,
             itemBuilder: (context, index) {

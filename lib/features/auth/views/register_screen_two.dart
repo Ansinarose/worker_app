@@ -1,4 +1,5 @@
 
+// import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:flutter/material.dart';
 // import 'package:file_picker/file_picker.dart';
 // import 'package:worker_application/common/constants/app_button_styles.dart';
@@ -10,6 +11,8 @@
 // import 'package:worker_application/common/widgets/experience_selection_widget.dart';
 // import 'package:worker_application/common/widgets/photo_selection.dart';
 // import 'package:worker_application/common/widgets/termsandcondition_widget.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:worker_application/features/auth/views/confirmation_page.dart';
 
 // class RegisterScreen extends StatefulWidget {
 //   const RegisterScreen({super.key});
@@ -19,6 +22,10 @@
 // }
 
 // class _RegisterScreenState extends State<RegisterScreen> {
+
+//    final FirebaseAuth _auth = FirebaseAuth.instance;
+//   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
 //   final TextEditingController nameController = TextEditingController();
 //   final TextEditingController emailController = TextEditingController();
 //   final TextEditingController phoneNumberController = TextEditingController();
@@ -31,6 +38,7 @@
 //   final TextEditingController resumeController = TextEditingController();
 
 //   final _formKey = GlobalKey<FormState>();
+//  // AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
 
 //   Future<void> _pickFile(TextEditingController controller) async {
 //     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -55,6 +63,70 @@
 //       });
 //     }
 //   }
+
+//   // Future<void> _saveData() async {
+//   //   if (_formKey.currentState!.validate()) {
+//   //     // Form is valid, proceed with the submission
+//   //     CollectionReference users = FirebaseFirestore.instance.collection('users');
+      
+//   //     await users.add({
+//   //       'name': nameController.text,
+//   //       'email': emailController.text,
+//   //       'phone': phoneNumberController.text,
+//   //       'address': addressController.text,
+//   //       'dob': dobController.text,
+//   //       'category': categoryController.text,
+//   //       'experience': experienceController.text,
+//   //       'idProof': idProofController.text,
+//   //       'certification': certificationController.text,
+//   //       'resume': resumeController.text,
+//   //     });
+
+//   //     ScaffoldMessenger.of(context).showSnackBar(
+//   //       SnackBar(content: Text('Registration Successful'))
+//   //     );
+//   //   }
+//   // }
+
+//   Future<void> _saveData() async {
+//     if (_formKey.currentState!.validate()) {
+//       // Form is valid, proceed with the submission
+//       try {
+//         // Ensure user is authenticated
+//         User? user = _auth.currentUser;
+//         if (user == null) {
+//           // Handle case where user is not authenticated
+//           // Redirect to login or handle appropriately
+//           return;
+//         }
+
+//         // Save data to Firestore under user's UID
+//         await _firestore.collection('users').doc(user.uid).set({
+//           'name': nameController.text,
+//           'email': emailController.text,
+//           'phone': phoneNumberController.text,
+//           'address': addressController.text,
+//           'dob': dobController.text,
+//           'category': categoryController.text,
+//           'experience': experienceController.text,
+//           'idProof': idProofController.text,
+//           'certification': certificationController.text,
+//           'resume': resumeController.text,
+//         });
+
+//         // Show success message
+//          Navigator.pushReplacement(
+//         context,
+//         MaterialPageRoute(builder: (context) => ConfirmationPage()),
+//       );
+//       } catch (e) {
+//         print('Error saving data: $e');
+//         // Handle error saving data to Firestore
+//         // Show error message to user
+//       }
+//     }
+//   }
+
 
 //   @override
 //   Widget build(BuildContext context) {
@@ -145,9 +217,9 @@
 //                 Text('Professional Details', style: AppTextStyles.heading(context)),
 //                 SizedBox(height: 20),
 //                 CategorySelectionWidget(controller: categoryController),
-//                 SizedBox(height: 20),
+//               //  SizedBox(height: 20),
 //                 ExperienceSelectionWidget(controller: experienceController),
-//                 SizedBox(height: 20),
+//                // SizedBox(height: 20),
 //                 Text('Document Upload', style: AppTextStyles.heading(context)),
 //                 SizedBox(height: 20),
 //                 CustomTextFormField(
@@ -179,11 +251,7 @@
 //                 Center(
 //                   child: TextButton(
 //                     style: AppButtonStyles.largeButton(context),
-//                     onPressed: () {
-//                       if (_formKey.currentState!.validate()) {
-//                         // Form is valid, proceed with the submission
-//                       }
-//                     },
+//                     onPressed: _saveData,
 //                     child: Text('SUBMIT'),
 //                   ),
 //                 ),
@@ -196,6 +264,8 @@
 //   }
 // }
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:worker_application/common/constants/app_button_styles.dart';
 import 'package:worker_application/common/constants/app_colors.dart';
@@ -206,16 +276,19 @@ import 'package:worker_application/common/widgets/curved_appbar.dart';
 import 'package:worker_application/common/widgets/experience_selection_widget.dart';
 import 'package:worker_application/common/widgets/photo_selection.dart';
 import 'package:worker_application/common/widgets/termsandcondition_widget.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:worker_application/features/auth/views/confirmation_page.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
@@ -228,6 +301,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController resumeController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
 
   Future<void> _pickFile(TextEditingController controller) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -256,24 +330,44 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Future<void> _saveData() async {
     if (_formKey.currentState!.validate()) {
       // Form is valid, proceed with the submission
-      CollectionReference users = FirebaseFirestore.instance.collection('users');
-      
-      await users.add({
-        'name': nameController.text,
-        'email': emailController.text,
-        'phone': phoneNumberController.text,
-        'address': addressController.text,
-        'dob': dobController.text,
-        'category': categoryController.text,
-        'experience': experienceController.text,
-        'idProof': idProofController.text,
-        'certification': certificationController.text,
-        'resume': resumeController.text,
-      });
+      try {
+        // Ensure user is authenticated
+        User? user = _auth.currentUser;
+        if (user == null) {
+          // Handle case where user is not authenticated
+          // Redirect to login or handle appropriately
+          return;
+        }
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Registration Successful'))
-      );
+        // Save data to Firestore under user's UID
+        await _firestore.collection('users').doc(user.uid).set({
+          'name': nameController.text,
+          'email': emailController.text,
+          'phone': phoneNumberController.text,
+          'address': addressController.text,
+          'dob': dobController.text,
+          'category': categoryController.text,
+          'experience': experienceController.text,
+          'idProof': idProofController.text,
+          'certification': certificationController.text,
+          'resume': resumeController.text,
+        });
+
+        // Show success message and navigate to confirmation page
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => ConfirmationPage()),
+        );
+      } catch (e) {
+        print('Error saving data: $e');
+        // Handle error saving data to Firestore
+        // Show error message to user
+      }
+    } else {
+      // Invalid form, enable autovalidation
+      setState(() {
+        _autovalidateMode = AutovalidateMode.always;
+      });
     }
   }
 
@@ -289,6 +383,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         padding: EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
+          autovalidateMode: _autovalidateMode, // Set autovalidate mode here
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -366,9 +461,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Text('Professional Details', style: AppTextStyles.heading(context)),
                 SizedBox(height: 20),
                 CategorySelectionWidget(controller: categoryController),
-                SizedBox(height: 20),
                 ExperienceSelectionWidget(controller: experienceController),
-                SizedBox(height: 20),
                 Text('Document Upload', style: AppTextStyles.heading(context)),
                 SizedBox(height: 20),
                 CustomTextFormField(
