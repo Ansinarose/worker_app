@@ -107,7 +107,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   } catch (e) {
     // Log the error for debugging purposes
-    print('Google Sign-In Error: $e');
+    // print('Google Sign-In Error: $e');
     emit(AuthenticatedError(message: e.toString()));
   }
 });

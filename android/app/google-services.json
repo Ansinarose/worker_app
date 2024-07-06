@@ -1,13 +1,32 @@
 {
   "project_info": {
-    "project_number": "993346210960",
-    "project_id": "workerapp-2e6c8",
-    "storage_bucket": "workerapp-2e6c8.appspot.com"
+    "project_number": "1028484626304",
+    "project_id": "alfaaluminiumworks",
+    "storage_bucket": "alfaaluminiumworks.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:993346210960:android:c6bacccb2da6daeaa15c15",
+        "mobilesdk_app_id": "1:1028484626304:android:bfa79ff85785e07688f365",
+        "android_client_info": {
+          "package_name": "com.example.company_application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCz6r_XiPySs3IyAZEDYvmiOIrMg9Z7vRo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028484626304:android:e5088728391e56d788f365",
         "android_client_info": {
           "package_name": "com.example.worker_application"
         }
@@ -15,7 +34,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAGioNiNryXbtOuacKQWrTr4CkK-QU_mgI"
+          "current_key": "AIzaSyCz6r_XiPySs3IyAZEDYvmiOIrMg9Z7vRo"
         }
       ],
       "services": {

@@ -1,8 +1,8 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, unnecessary_null_comparison, must_be_immutable, use_super_parameters
 // lib/common/widgets/curved_app_bar.dart
 import 'package:flutter/material.dart';
 
-import 'package:worker_application/common/constants/app_colors.dart';
+
 
 class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
   String title;

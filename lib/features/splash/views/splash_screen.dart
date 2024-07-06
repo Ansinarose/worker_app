@@ -1,5 +1,6 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worker_application/bloc/bloc/app_bloc.dart';
 import 'package:worker_application/bloc/bloc/app_event.dart';
@@ -27,7 +28,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
-        // TODO: implement listener
+       
 
         if(state is Authenticated){
           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> HomeScreenWrapper()));

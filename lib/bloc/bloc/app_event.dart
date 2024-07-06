@@ -1,4 +1,6 @@
 // lib/bloc/splash_event.dart
+// ignore_for_file: unused_import
+
 import 'package:equatable/equatable.dart';
 import 'package:worker_application/features/auth/models/user_model.dart';
 

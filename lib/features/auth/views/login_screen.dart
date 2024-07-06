@@ -1,4 +1,6 @@
 
+// ignore_for_file: unused_element, sort_child_properties_last
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worker_application/bloc/bloc/app_bloc.dart';
@@ -204,7 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                         },
                         child: Text('Login'),
-                        style: AppButtonStyles.smallButton(context),
+                        style: AppButtonStyles.largeButton(context),
                       ),
                     ),
                   ],

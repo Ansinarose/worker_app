@@ -1,3 +1,5 @@
+// ignore_for_file: sort_child_properties_last
+
 import 'package:flutter/material.dart';
 import 'package:worker_application/common/constants/app_button_styles.dart';
 import 'package:worker_application/common/constants/app_colors.dart';

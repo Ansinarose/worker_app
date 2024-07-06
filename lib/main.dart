@@ -1,8 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:worker_application/bloc/bloc/app_bloc.dart';
-import 'package:worker_application/bloc/bloc/app_event.dart';
+
 import 'package:worker_application/features/auth/views/login_screen.dart';
 import 'package:worker_application/features/auth/views/register_screen_one.dart';
 import 'package:worker_application/features/auth/views/register_screen_two.dart';
