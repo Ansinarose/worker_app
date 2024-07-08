@@ -104,6 +104,7 @@ class _CategorySelectionWidgetState extends State<CategorySelectionWidget> {
     if (selectedItems != null) {
       setState(() {
         selectedCategories = selectedItems;
+        widget.controller.text = selectedCategories.join(', ');
       });
     }
   }
@@ -126,6 +127,7 @@ class _CategorySelectionWidgetState extends State<CategorySelectionWidget> {
           ),
         ),
         SizedBox(height: 10),
+        if(selectedCategories.isNotEmpty)
         Container(
           height: mediaQuery.size.height * 0.2, // Adjust the height based on screen size
           child: ListView.builder(
@@ -139,6 +141,7 @@ class _CategorySelectionWidgetState extends State<CategorySelectionWidget> {
                   onPressed: () {
                     setState(() {
                       selectedCategories.removeAt(index);
+                      widget.controller.text = selectedCategories.join(', ');
                     });
                   },
                 ),

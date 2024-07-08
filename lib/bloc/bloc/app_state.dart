@@ -26,3 +26,10 @@ class AuthenticatedError extends AuthState{
   AuthenticatedError({required this.message});
 
 }
+
+class WorkerRegistrationSubmitted extends AuthState {}
+
+class WorkerRegistrationError extends AuthState {
+  final String message;
+  WorkerRegistrationError({required this.message});
+}

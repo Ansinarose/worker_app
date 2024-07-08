@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:worker_application/bloc/bloc/app_event.dart';
@@ -111,5 +114,48 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthenticatedError(message: e.toString()));
   }
 });
+
+on<SubmitWorkerRegistrationEvent>((event, emit) async {
+      emit(AuthLoading());
+      try {
+        // Get the current user
+        User? user = _auth.currentUser;
+        if (user == null) {
+          emit(UnAuthenticated());
+          return;
+        }
+
+        // Store worker data in Firestore
+        await FirebaseFirestore.instance
+            .collection("worker_request")
+            .doc(user.uid)
+            .set(event.workerData);
+ print("Worker data written successfully");
+        // Store files in Firebase Storage
+        for (var file in event.files) {
+          String fileName = file['name'];
+          String filePath = file['path'];
+          
+          Reference ref = FirebaseStorage.instance
+              .ref()
+              .child('worker_files/${user.uid}/$fileName');
+          
+          await ref.putFile(File(filePath));
+          String downloadURL = await ref.getDownloadURL();
+          
+          // Update the Firestore document with the download URL
+          await FirebaseFirestore.instance
+              .collection("worker_request")
+              .doc(user.uid)
+              .update({fileName: downloadURL});
+        }
+
+        emit(WorkerRegistrationSubmitted());
+      } catch (e) {
+        emit(WorkerRegistrationError(message: e.toString()));
+      }
+    });
+
+
   }
 }

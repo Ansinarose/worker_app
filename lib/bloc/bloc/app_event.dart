@@ -30,3 +30,10 @@ class RegisterEvent extends AuthEvent{
 class LogoutEvent extends AuthEvent{}
 
 class GoogleSignInEvent extends AuthEvent {}
+
+class SubmitWorkerRegistrationEvent extends AuthEvent {
+  final Map<String, dynamic> workerData;
+  final List<Map<String, dynamic>> files;
+
+  SubmitWorkerRegistrationEvent({required this.workerData, required this.files});
+}
