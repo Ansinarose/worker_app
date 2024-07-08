@@ -46,43 +46,87 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   String? _photoUrl;
 
-  Future<void> _pickFile(TextEditingController controller) async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-    if (result != null) {
+ Future<void> _pickFile(TextEditingController controller) async {
+  FilePickerResult? result = await FilePicker.platform.pickFiles();
+  if (result != null) {
+    String? filePath = result.files.single.path;
+    if (filePath != null) {
+      print('Selected file path: $filePath');
       setState(() {
         controller.text = result.files.single.name;
       });
-      await _uploadFileToStorage(result.files.single.path!, controller);
+      await _uploadFileToStorage(filePath, controller);
+    } else {
+      print('File path is null');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Unable to get file path')),
+      );
     }
   }
-
-  Future<void> _uploadFileToStorage(String filePath, TextEditingController controller) async {
-    try {
-      File file = File(filePath);
-      String fileName = '${controller.text}_${DateTime.now().millisecondsSinceEpoch}';
-      UploadTask uploadTask = _storage.ref('worker_image/$fileName').putFile(file);
-      TaskSnapshot taskSnapshot = await uploadTask;
-      String downloadURL = await taskSnapshot.ref.getDownloadURL();
-      if (controller == idProofController) {
-        _photoUrl = downloadURL;
-      }
-    } catch (e) {
-      print('Error uploading file: $e');
+}
+  // Future<void> _uploadFileToStorage(String filePath, TextEditingController controller) async {
+  //   try {
+  //     File file = File(filePath);
+  //     String fileName = '${controller.text}_${DateTime.now().millisecondsSinceEpoch}';
+  //     UploadTask uploadTask = _storage.ref('worker_image/$fileName').putFile(file);
+  //     TaskSnapshot taskSnapshot = await uploadTask;
+  //     String downloadURL = await taskSnapshot.ref.getDownloadURL();
+  //      print('File uploaded successfully. Download URL: $downloadURL');
+  //     if (controller == idProofController) {
+  //       _photoUrl = downloadURL;
+  //     }
+  //   } catch (e) {
+  //     print('Error uploading file: $e');
+  //   }
+  // }
+Future<String?> _uploadFileToStorage(String filePath, TextEditingController controller) async {
+  try {
+    File file = File(filePath);
+    if (!file.existsSync()) {
+      throw FileSystemException('File does not exist', filePath);
     }
+    // ... rest of the upload code ...
+  } on FileSystemException catch (e) {
+    print('FileSystemException: ${e.message}, path: ${e.path}');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('File system error: ${e.message}, path: ${e.path}')),
+    );
+  } on FirebaseException catch (e) {
+    print('FirebaseException: ${e.message}');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Firebase error: ${e.message}')),
+    );
+  } catch (e) {
+    print('Unexpected error: $e');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Unexpected error: $e')),
+    );
   }
+  return null;
+}
+  // Future<void> _pickImage() async {
+  //   final picker = ImagePicker();
+  //   final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
-  Future<void> _pickImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+  //   if (pickedFile != null) {
+  //     setState(() {
+  //       _photoUrl = pickedFile.path;
+  //     });
+  //     await _uploadFileToStorage(pickedFile.path, idProofController);
+  //   }
+  // }
+Future<void> _pickImage() async {
+  final picker = ImagePicker();
+  final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
-    if (pickedFile != null) {
-      setState(() {
-        _photoUrl = pickedFile.path;
-      });
-      await _uploadFileToStorage(pickedFile.path, idProofController);
-    }
+  if (pickedFile != null) {
+    setState(() {
+      _photoUrl = pickedFile.path;
+    });
+    print('Selected image path: ${pickedFile.path}');
+    await _uploadFileToStorage(pickedFile.path, idProofController);
   }
-
+}
   Future<void> _pickDate() async {
     DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -105,7 +149,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         if (user == null) {
           return;
         }
-
+      // Wait for all file uploads to complete
+      String? idProofUrl = await _uploadFileToStorage(idProofController.text, idProofController);
+      String? certificationUrl = await _uploadFileToStorage(certificationController.text, certificationController);
+      String? resumeUrl = await _uploadFileToStorage(resumeController.text, resumeController);
         await _firestore.collection('Worker').doc(user.uid).set({
           'name': nameController.text,
           'email': emailController.text,
@@ -126,6 +173,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         );
       } catch (e) {
         print('Error saving data: $e');
+        ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to save data: $e')),
+      );
       }
     } else {
       setState(() {
