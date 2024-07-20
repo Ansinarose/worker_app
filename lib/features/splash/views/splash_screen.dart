@@ -1,13 +1,19 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
+// ignore_for_file: use_build_context_synchronously, prefer_const_literals_to_create_immutables
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worker_application/bloc/bloc/app_bloc.dart';
 import 'package:worker_application/bloc/bloc/app_event.dart';
 import 'package:worker_application/bloc/bloc/app_state.dart';
 import 'package:worker_application/common/constants/app_colors.dart';
+import 'package:worker_application/features/auth/views/confirmation_page.dart';
+import 'package:worker_application/features/auth/views/register_screen_two.dart';
 import 'package:worker_application/features/home/views/home_screen.dart';
 import 'package:worker_application/features/onboarding/views/skip_page_one.dart';
+
+
 
 class SplashPageWrapper extends StatelessWidget {
   const SplashPageWrapper({super.key});
@@ -16,7 +22,7 @@ class SplashPageWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AuthBloc()..add(CheckLoginStatusEvent()),
-      child: SplashScreen(),
+      child: const SplashScreen(),
     );
   }
 }
@@ -27,13 +33,51 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
-       
+      listener: (context, state) async {
+        if (state is Authenticated) {
+         // print("User is authenticated");
+          User? user = FirebaseAuth.instance.currentUser;
+          if (user != null) {
+           // print("Current user UID: ${user.uid}");
+            try {
+              DocumentSnapshot workerDoc = await FirebaseFirestore.instance
+                  .collection("workers_request")
+                  .doc(user.uid)
+                  .get();
 
-        if(state is Authenticated){
-          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> HomeScreenWrapper()));
-        }else if(state is UnAuthenticated){
-          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> SkipPageOne()));
+              if (workerDoc.exists) {
+                //print("Worker document exists");
+                //print("Worker data: ${workerDoc.data()}");
+                bool registrationAccepted = workerDoc['registrationAccepted'] ?? false;
+               // print("Registration accepted: $registrationAccepted");
+                if (registrationAccepted) {
+                  //print("Navigating to HomeScreenWrapper");
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => HomeScreenWrapper()));
+                } else {
+                 // print("Navigating to ConfirmationPage");
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => ConfirmationPage()));
+                }
+              } else {
+               // print("Worker document does not exist, navigating to RegisterScreen");
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => RegisterScreen()));
+              }
+            } catch (e) {
+              //print("Error fetching worker document: $e");
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => RegisterScreen()));
+            }
+          } else {
+           // print("Current user is null");
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => SkipPageOne()));
+          }
+        } else if (state is UnAuthenticated) {
+         // print("User is unauthenticated");
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => SkipPageOne()));
         }
       },
       child: Scaffold(
@@ -45,15 +89,13 @@ class SplashScreen extends StatelessWidget {
               Container(
                 width: 70,
                 height: 70,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(
                             'assets/images/387-3872576_purple-home-5-icon-free-icons-house-with.png'),
                         fit: BoxFit.fill)),
               ),
-              SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               Text.rich(
                 TextSpan(
                   children: [

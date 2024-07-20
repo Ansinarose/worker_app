@@ -20,8 +20,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     user=_auth.currentUser;
       });
   if(user != null){
+   //  print("User is authenticated with UID: ${user?.uid}");
     emit(Authenticated(user));
   }else{
+   // print("User is not authenticated");
     emit(UnAuthenticated());
   }
    }catch(e){
@@ -125,12 +127,18 @@ on<SubmitWorkerRegistrationEvent>((event, emit) async {
           return;
         }
 
+        Map<String, dynamic> workerData = {
+      ...event.workerData,
+      'registrationAccepted': false,
+      'uid':user.uid,
+    };
+ // print("Attempting to create worker document with UID: ${user.uid}");
         // Store worker data in Firestore
         await FirebaseFirestore.instance
-            .collection("worker_request")
+            .collection("workers_request")
             .doc(user.uid)
-            .set(event.workerData);
- print("Worker data written successfully");
+            .set(workerData);
+ //print("Worker data written successfully for uid: ${user.uid}");
         // Store files in Firebase Storage
         for (var file in event.files) {
           String fileName = file['name'];
@@ -145,7 +153,7 @@ on<SubmitWorkerRegistrationEvent>((event, emit) async {
           
           // Update the Firestore document with the download URL
           await FirebaseFirestore.instance
-              .collection("worker_request")
+              .collection("workers_request")
               .doc(user.uid)
               .update({fileName: downloadURL});
         }
