@@ -1,7 +1,5 @@
-
-// ignore_for_file: use_super_parameters, library_private_types_in_public_api, unnecessary_null_comparison, sized_box_for_whitespace
-
 import 'package:flutter/material.dart';
+import 'package:worker_application/common/constants/app_colors.dart';
 import 'package:worker_application/common/constants/app_text_styles.dart';
 
 class CategorySelectionWidget extends StatefulWidget {
@@ -39,7 +37,7 @@ class _CategorySelectionWidgetState extends State<CategorySelectionWidget> {
     'Custom Furniture Designs',
     'Stair Railings',
     'Staircase Fabrication',
-   'Custom Stair Designs',
+    'Custom Stair Designs',
   ];
 
   List<String> selectedCategories = [];
@@ -120,35 +118,55 @@ class _CategorySelectionWidgetState extends State<CategorySelectionWidget> {
           controller: widget.controller,
           readOnly: true,
           onTap: _showCategoryDialog,
-          decoration: InputDecoration(
+          decoration: InputDecoration(labelStyle: TextStyle(color: AppColors.textPrimaryColor),
             labelText: 'Categories',
-            suffixIcon: Icon(Icons.arrow_drop_down),
-            border: OutlineInputBorder(),
+            prefixIcon: Icon(Icons.category,color: AppColors.textPrimaryColor),
+            suffixIcon: Icon(Icons.arrow_drop_down,color: AppColors.textPrimaryColor),
+            border: OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.textPrimaryColor), // Customize border color here
+              borderRadius: BorderRadius.circular(12),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.textPrimaryColor), // Customize border color when focused
+              borderRadius: BorderRadius.circular(12),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.textPrimaryColor), // Customize border color when enabled
+              borderRadius: BorderRadius.circular(12),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.textPrimaryColor), // Customize border color when there is an error
+              borderRadius: BorderRadius.circular(12),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.textPrimaryColor), // Customize border color when there is an error and focused
+              borderRadius: BorderRadius.circular(12),
+            ),
           ),
         ),
         SizedBox(height: 10),
-        if(selectedCategories.isNotEmpty)
-        Container(
-          height: mediaQuery.size.height * 0.2, // Adjust the height based on screen size
-          child: ListView.builder(
-            itemCount: selectedCategories.length,
-            itemBuilder: (context, index) {
-              final category = selectedCategories[index];
-              return ListTile(
-                title: Text(category),
-                trailing: IconButton(
-                  icon: Icon(Icons.cancel),
-                  onPressed: () {
-                    setState(() {
-                      selectedCategories.removeAt(index);
-                      widget.controller.text = selectedCategories.join(', ');
-                    });
-                  },
-                ),
-              );
-            },
+        if (selectedCategories.isNotEmpty)
+          Container(
+            height: mediaQuery.size.height * 0.2, // Adjust the height based on screen size
+            child: ListView.builder(
+              itemCount: selectedCategories.length,
+              itemBuilder: (context, index) {
+                final category = selectedCategories[index];
+                return ListTile(
+                  title: Text(category),
+                  trailing: IconButton(
+                    icon: Icon(Icons.cancel),
+                    onPressed: () {
+                      setState(() {
+                        selectedCategories.removeAt(index);
+                        widget.controller.text = selectedCategories.join(', ');
+                      });
+                    },
+                  ),
+                );
+              },
+            ),
           ),
-        ),
       ],
     );
   }

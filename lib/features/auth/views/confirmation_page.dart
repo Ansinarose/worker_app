@@ -32,9 +32,12 @@ class ConfirmationPage extends StatelessWidget {
             SizedBox(height: 10),
             Text(
               'You will receive a response from us soon.',
+
               style: TextStyle(fontSize: 16),
               textAlign: TextAlign.center,
             ),
+            Text('If you do not receive a confirmation message within 3 days of your registration, it means you have not been selected for the job. We appreciate your interest and encourage you to apply again in the future.',
+            style: AppTextStyles.body(context),)
           ],
         ),
       ),
