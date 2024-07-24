@@ -96,7 +96,7 @@ class AppDrawer extends StatelessWidget {
                 ? Icon(Icons.person, size: 50, color: Colors.white)
                 : null,
           ),
-          accountName: Text(userData['name'] ?? 'Name not set'),
+          accountName: Text(userData['name'] ?? 'Name not set',style: TextStyle(color: AppColors.textPrimaryColor),),
           accountEmail: Text(userData['email'] ?? 'Email not set'),
         ),
         ListTile(
