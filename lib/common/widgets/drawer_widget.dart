@@ -134,16 +134,16 @@ class AppDrawer extends StatelessWidget {
             Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileAddScreen()));
           },
         ),
-        ListTile(
-          leading: Icon(Icons.logout),
-          title: Text('Logout'),
-          onTap: () {
-          //  _handleLogout(context);
-          final authBloc = BlocProvider.of<AuthBloc>(context);
-               authBloc.add(LogoutEvent());
-           Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
-          },
-        ),
+        // ListTile(
+        //   leading: Icon(Icons.logout),
+        //   title: Text('Logout'),
+        //   onTap: () {
+        //   //  _handleLogout(context);
+        //   final authBloc = BlocProvider.of<AuthBloc>(context);
+        //        authBloc.add(LogoutEvent());
+        //    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+        //   },
+        // ),
       ],
     ),
   );
