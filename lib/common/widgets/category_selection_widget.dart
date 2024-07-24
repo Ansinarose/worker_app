@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison, use_super_parameters, library_private_types_in_public_api, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:worker_application/common/constants/app_colors.dart';
 import 'package:worker_application/common/constants/app_text_styles.dart';

@@ -337,6 +337,8 @@
 //       'address':workerProfileData['address'],
 //     });
 
+// ignore_for_file: use_build_context_synchronously, avoid_print, use_key_in_widget_constructors, use_super_parameters
+
 //     Navigator.of(context).pop(); // Close the dialog
 //     ScaffoldMessenger.of(context).showSnackBar(
 //       SnackBar(content: Text('Attendance recorded successfully')),

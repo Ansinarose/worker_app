@@ -31,6 +31,8 @@
 //     this.suffixIcon, // Add this line
 //   }) : super(key: key);
 
+// ignore_for_file: use_super_parameters
+
 //   @override
 //   Widget build(BuildContext context) {
 //     return TextFormField(
