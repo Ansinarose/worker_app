@@ -4,9 +4,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:worker_application/bloc/bloc/app_bloc.dart';
-import 'package:worker_application/bloc/bloc/app_event.dart';
 import 'package:worker_application/common/constants/app_colors.dart';
 import 'package:worker_application/features/profile/profile_add_screen.dart';
 
@@ -134,16 +131,7 @@ class AppDrawer extends StatelessWidget {
             Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileAddScreen()));
           },
         ),
-        // ListTile(
-        //   leading: Icon(Icons.logout),
-        //   title: Text('Logout'),
-        //   onTap: () {
-        //   //  _handleLogout(context);
-        //   final authBloc = BlocProvider.of<AuthBloc>(context);
-        //        authBloc.add(LogoutEvent());
-        //    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
-        //   },
-        // ),
+       
       ],
     ),
   );

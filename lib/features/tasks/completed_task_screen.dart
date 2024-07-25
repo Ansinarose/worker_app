@@ -6,6 +6,7 @@ import 'package:worker_application/bloc/bloc/counter_bloc.dart';
 import 'package:worker_application/bloc/bloc/counter_state.dart';
 import 'package:worker_application/common/constants/app_colors.dart';
 import 'package:worker_application/common/constants/app_text_styles.dart';
+import 'package:worker_application/features/workorder/work_order_details.dart';
 
 class CompletedTasksScreen extends StatelessWidget {
   @override
@@ -27,6 +28,10 @@ class CompletedTasksScreen extends StatelessWidget {
               return Column(
                 children: [
                   ListTile(
+                    onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=> OrderDetailScreen(
+                        orderDetails: order)));
+                    },
                     leading: ClipRRect(
                       borderRadius: BorderRadius.circular(5),
                       child: Image.network(

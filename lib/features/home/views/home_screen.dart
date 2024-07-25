@@ -13,6 +13,7 @@ import 'package:worker_application/common/widgets/drawer_widget.dart';
 import 'package:worker_application/common/widgets/home_notification.dart';
 import 'package:worker_application/common/widgets/home_statuscontainer_widget.dart';
 import 'package:worker_application/common/widgets/record_attendence_widget.dart';
+import 'package:worker_application/features/mywork/mywork_screen.dart';
 import 'package:worker_application/features/notification/notification_screen.dart';
 import 'package:worker_application/features/profile/profile_add_screen.dart';
 
@@ -117,18 +118,23 @@ class HomeScreen extends StatelessWidget {
                                   onTap: () {
                                     // Handle on tap for the first container
                                   },
-                                  child: Container(
-                                    height: 80,
-                                    width: 160,
-                                    margin: EdgeInsets.only(left: 20, bottom: 20),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        'My works',
-                                        style: AppTextStyles.body(context),
+                                  child: InkWell(
+                                    onTap:(){
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=> MyWorkScreen()));
+                                    } ,
+                                    child: Container(
+                                      height: 80,
+                                      width: 160,
+                                      margin: EdgeInsets.only(left: 20, bottom: 20),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'My works',
+                                          style: AppTextStyles.body(context),
+                                        ),
                                       ),
                                     ),
                                   ),
