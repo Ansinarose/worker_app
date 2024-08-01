@@ -1,4 +1,4 @@
-// ignore_for_file: use_super_parameters, unnecessary_to_list_in_spreads
+// ignore_for_file: unnecessary_to_list_in_spreads, use_super_parameters
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -46,19 +46,29 @@ class HomeNotificationsWidget extends StatelessWidget {
               children: [
                 ...snapshot.data!.docs.map((doc) {
                   var orderData = doc.data() as Map<String, dynamic>;
-                  var orderDetails = orderData['orderDetails'] as Map<String, dynamic>;
+                  var orderDetails = orderData['orderDetails'] as Map<String, dynamic>? ?? {};
 
                   return ListTile(
-                    title: Text('New Order: ${orderDetails['productTitle']}',style: AppTextStyles.body(context),),
-                    subtitle: Text('Price: ₹${orderDetails['productPrice']}',style: AppTextStyles.body(context),),
+                    title: Text(
+                      'New Order: ${orderDetails['productTitle'] ?? 'Unknown Product'}',
+                      style: AppTextStyles.body(context),
+                    ),
+                    subtitle: Text(
+                      'Price: ₹${orderDetails['productPrice'] ?? 'N/A'}',
+                      style: AppTextStyles.body(context),
+                    ),
                     leading: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                        orderDetails['productImage'],
-                        fit: BoxFit.cover,
-                        width: 50,
-                        height: 50,
-                      ),
+                      child: orderDetails['productImage'] != null
+                          ? Image.network(
+                              orderDetails['productImage'],
+                              fit: BoxFit.cover,
+                              width: 50,
+                              height: 50,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  Icon(Icons.error),
+                            )
+                          : Icon(Icons.image_not_supported),
                     ),
                     onTap: () {
                       Navigator.push(

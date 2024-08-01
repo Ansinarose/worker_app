@@ -54,13 +54,7 @@ class PendingTasksScreen extends StatelessWidget {
                       SizedBox(height: 8),
                       Center(
                         child: 
-                        // ElevatedButton(
-                        //   style: AppButtonStyles.smallButton(context),
-                        //   child: Text('Start Work'),
-                        //   onPressed: () {
-                        //     context.read<CounterBloc>().add(MoveToProgressEvent(order));
-                        //   },
-                        // ),
+                        
                                    ElevatedButton(
                                     style: AppButtonStyles.smallButton(context),
   child: Text('Start Work'),

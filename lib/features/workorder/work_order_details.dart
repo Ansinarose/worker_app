@@ -1,7 +1,7 @@
-// ignore_for_file: use_super_parameters
-
+// ignore_for_file: use_super_parameters, avoid_print, use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:worker_application/bloc/bloc/counter_bloc.dart';
 import 'package:worker_application/bloc/bloc/counter_event.dart';
 import 'package:worker_application/bloc/bloc/counter_state.dart';
@@ -29,7 +29,7 @@ class OrderDetailScreen extends StatelessWidget {
             backgroundColor: AppColors.textPrimaryColor,
           ),
           body: SingleChildScrollView(
-            padding: EdgeInsets.only(bottom: 16,left: 16,right: 16,top: 50),
+            padding: EdgeInsets.only(bottom: 16, left: 16, right: 16, top: 50),
             child: Card(
               elevation: 5,
               shape: RoundedRectangleBorder(
@@ -83,7 +83,8 @@ class OrderDetailScreen extends StatelessWidget {
                           if (isPending)
                             ElevatedButton(
                               style: AppButtonStyles.smallButton(context),
-                              onPressed: () {
+                              onPressed: () async {
+                                await _updateOrderStatus(context, 'in_progress');
                                 context.read<CounterBloc>().add(MoveToProgressEvent(orderDetails));
                               },
                               child: Text('Start Work'),
@@ -91,7 +92,8 @@ class OrderDetailScreen extends StatelessWidget {
                           if (isInProgress)
                             ElevatedButton(
                               style: AppButtonStyles.smallButton(context),
-                              onPressed: () {
+                              onPressed: () async {
+                                await _updateOrderStatus(context, 'completed');
                                 context.read<CounterBloc>().add(MoveToCompletedEvent(orderDetails));
                               },
                               child: Text('Mark as Completed'),
@@ -104,7 +106,8 @@ class OrderDetailScreen extends StatelessWidget {
                           if (!isPending && !isInProgress && !isCompleted)
                             ElevatedButton(
                               style: AppButtonStyles.smallButton(context),
-                              onPressed: () {
+                              onPressed: () async {
+                                await _updateOrderStatus(context, 'pending');
                                 context.read<CounterBloc>().add(AddToPendingEvent(orderDetails));
                               },
                               child: Text('Add to Pending'),
@@ -120,5 +123,71 @@ class OrderDetailScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  Future<void> _updateOrderStatus(BuildContext context, String status) async {
+    try {
+      String? orderId = orderDetails['orderId'];
+      String? userId = orderDetails['userId'];
+
+      if (orderId == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Cannot update: Invalid order ID')),
+        );
+        return;
+      }
+
+      Map<String, dynamic> updateData = {
+        'status': status,
+        'updatedAt': FieldValue.serverTimestamp(),
+      };
+
+      if (status == 'in_progress') {
+        updateData['workStartedAt'] = FieldValue.serverTimestamp();
+      } else if (status == 'completed') {
+        updateData['workCompletedAt'] = FieldValue.serverTimestamp();
+      }
+
+      await FirebaseFirestore.instance
+          .collection('Customerbookings')
+          .doc(orderId)
+          .update(updateData);
+
+      if (userId != null) {
+        _sendCustomerNotification(userId, orderId, status);
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Order status updated to $status')),
+      );
+    } catch (e) {
+      print('Error updating order status: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to update order status')),
+      );
+    }
+  }
+
+  void _sendCustomerNotification(String customerId, String orderId, String status) {
+    try {
+      String message;
+      if (status == 'in_progress') {
+        message = 'Work has started on your order.';
+      } else if (status == 'completed') {
+        message = 'Work has been completed on your order.';
+      } else {
+        message = 'Your order status has been updated to $status.';
+      }
+
+      FirebaseFirestore.instance.collection('customer_notifications').add({
+        'userId': customerId,
+        'message': message,
+        'orderId': orderId,
+        'timestamp': FieldValue.serverTimestamp(),
+        'read': false,
+      });
+    } catch (e) {
+      print('Error sending notification: $e');
+    }
   }
 }

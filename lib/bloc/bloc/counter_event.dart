@@ -21,3 +21,5 @@ class LoadStateEvent extends CounterEvent {
   final CounterState state;
   LoadStateEvent(this.state);
 }
+
+class FetchOrdersEvent extends CounterEvent {}

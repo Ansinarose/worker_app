@@ -45,31 +45,34 @@ class NotificationScreen extends StatelessWidget {
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
               var orderData = snapshot.data!.docs[index].data() as Map<String, dynamic>;
-              var orderDetails = orderData['orderDetails'] as Map<String, dynamic>;
+              var orderDetails = orderData['orderDetails'] as Map<String, dynamic>? ?? {};
 
               return Card(
                 margin: EdgeInsets.all(8),
                 child: ListTile(
-                  title: Text('New Order: ${orderDetails['productTitle']}'),
+                  title: Text('New Order: ${orderDetails['productTitle'] ?? 'Unknown Product'}'),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Price: ₹${orderDetails['productPrice']}'),
-                      Text('Color: ${orderDetails['selectedColor']}'),
-                      Text('Forwarded at: ${DateFormat('dd MMM yyyy, HH:mm').format(orderData['forwardedAt'].toDate())}'),
+                      Text('Price: ₹${orderDetails['productPrice'] ?? 'N/A'}'),
+                      Text('Color: ${orderDetails['selectedColor'] ?? 'N/A'}'),
+                      Text('Forwarded at: ${_formatDate(orderData['forwardedAt'])}'),
                     ],
                   ),
                   leading: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      orderDetails['productImage'],
-                      fit: BoxFit.cover,
-                      width: 50,
-                      height: 50,
-                    ),
+                    child: orderDetails['productImage'] != null
+                        ? Image.network(
+                            orderDetails['productImage'],
+                            fit: BoxFit.cover,
+                            width: 50,
+                            height: 50,
+                            errorBuilder: (context, error, stackTrace) =>
+                                Icon(Icons.error),
+                          )
+                        : Icon(Icons.image_not_supported),
                   ),
                   onTap: () {
-                    // Navigate to a detailed view of the order
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -84,5 +87,13 @@ class NotificationScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  String _formatDate(dynamic date) {
+    if (date == null) return 'N/A';
+    if (date is Timestamp) {
+      return DateFormat('dd MMM yyyy, HH:mm').format(date.toDate());
+    }
+    return 'Invalid Date';
   }
 }
