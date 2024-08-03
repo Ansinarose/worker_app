@@ -8,6 +8,7 @@ import 'package:worker_application/common/constants/app_colors.dart';
 import 'package:worker_application/common/constants/app_text_styles.dart';
 import 'package:worker_application/features/about/views/about_page.dart';
 import 'package:worker_application/features/home/views/home_screen.dart';
+import 'package:worker_application/features/mywork/mywork_screen.dart';
 import 'package:worker_application/features/notification/notification_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -74,7 +75,8 @@ class SettingsScreen extends StatelessWidget {
             icon: Icons.work,
             title: 'Total Works',
             onTap: () {
-              // Navigate to Total Works screen
+             Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => MyWorkScreen()));
             },
           ),
           _buildSettingsTile(

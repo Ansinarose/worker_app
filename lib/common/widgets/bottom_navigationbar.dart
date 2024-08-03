@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:worker_application/common/constants/app_colors.dart';
+import 'package:worker_application/features/chat/views/chat_screen.dart';
 import 'package:worker_application/features/home/views/home_screen.dart';
 import 'package:worker_application/features/settings/views/settings_screen.dart';
 
@@ -23,12 +24,13 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
           MaterialPageRoute(builder: (context) => HomeScreen()),
         );
         break;
-      case 1:
-        // Navigator.pushReplacement(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => ChatScreen()),
-        // );
-        break;
+      // In BottomNavigationWidget
+case 1:
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => ChatScreen()),
+  );
+  break;
       case 2:
         // Navigator.pushReplacement(
         //   context,

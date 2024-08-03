@@ -12,6 +12,7 @@ import 'package:worker_application/common/constants/app_colors.dart';
 import 'package:worker_application/common/constants/textform_field.dart';
 import 'package:worker_application/common/widgets/curved_appbar.dart';
 import 'package:worker_application/common/widgets/custom_snackbar.dart';
+import 'package:worker_application/features/home/views/home_screen.dart';
 
 class LoginScreenWrapper extends StatelessWidget {
   const LoginScreenWrapper({super.key});
@@ -74,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ScaffoldMessenger.of(context).showSnackBar(
                 CustomSnackBar.show(message: 'Login successful! Welcome back.')
               );
-              Navigator.pushNamedAndRemoveUntil(context, '/carousel', (route) => false);
+             Navigator.of(context).push(MaterialPageRoute(builder: (context)=> HomeScreenWrapper()));
 
             } else if (state is AuthenticatedError) {
               ScaffoldMessenger.of(context).showSnackBar(
