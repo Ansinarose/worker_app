@@ -116,7 +116,6 @@ class HomeScreen extends StatelessWidget {
                                 alignment: Alignment.bottomLeft,
                                 child: InkWell(
                                   onTap: () {
-                                    // Handle on tap for the first container
                                   },
                                   child: InkWell(
                                     onTap:(){

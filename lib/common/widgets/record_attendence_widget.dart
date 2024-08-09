@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:worker_application/common/constants/app_colors.dart';
 import 'package:worker_application/common/constants/app_text_styles.dart';
 
 class RecordAttendanceWidget extends StatelessWidget {
@@ -42,7 +43,10 @@ class RecordAttendanceWidget extends StatelessWidget {
       final now = Timestamp.now();
       if (now.toDate().difference(lastTimestamp.toDate()).inHours < 24) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('You have already submitted your attendance today.')),
+          SnackBar(backgroundColor: AppColors.textsecondaryColor,
+            content: Text('You have already submitted your attendance today.',style: TextStyle(
+            color: AppColors.textPrimaryColor
+          ),)),
         );
         return;
       }
@@ -65,21 +69,21 @@ class RecordAttendanceWidget extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Record Attendance'),
+          title: Text('Record Attendance',style: AppTextStyles.subheading(context),),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Are you available for work today?'),
+              Text('Are you available for work today?',style: AppTextStyles.body(context),),
               SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
-                    child: Text('Yes'),
+                    child: Text('Yes',style: AppTextStyles.body(context),),
                     onPressed: () => _recordAttendance(context, true, workerProfileData),
                   ),
                   ElevatedButton(
-                    child: Text('No'),
+                    child: Text('No',style: AppTextStyles.body(context),),
                     onPressed: () => _recordAttendance(context, false, workerProfileData),
                   ),
                 ],

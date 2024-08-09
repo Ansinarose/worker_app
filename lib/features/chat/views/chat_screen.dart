@@ -94,7 +94,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                       padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: isMe ? Color.fromARGB(255, 198, 220, 239) : Colors.grey[300],
+                        color: isMe ? Color.fromARGB(255, 198, 220, 239) : Color.fromARGB(255, 235, 219, 235),
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Column(
@@ -104,7 +104,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           SizedBox(height: 5),
                           Text(
                             formatMessageTime(message.timestamp.toDate()),
-                            style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                            style: TextStyle(fontSize: 12, color: Color.fromARGB(255, 49, 48, 49)),
                           ),
                         ],
                       ),

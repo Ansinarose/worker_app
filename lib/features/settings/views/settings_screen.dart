@@ -10,6 +10,7 @@ import 'package:worker_application/features/about/views/about_page.dart';
 import 'package:worker_application/features/home/views/home_screen.dart';
 import 'package:worker_application/features/mywork/mywork_screen.dart';
 import 'package:worker_application/features/notification/notification_screen.dart';
+import 'package:worker_application/features/salary/views/salary_history_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   @override
@@ -40,8 +41,9 @@ class SettingsScreen extends StatelessWidget {
             context,
             icon: Icons.payment,
             title: 'Payment Details',
-            onTap: () {
-              // Navigate to Payment Details screen
+            onTap: () {               
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => PaymentHistoryScreen()));
             },
           ),
           _buildSettingsTile(

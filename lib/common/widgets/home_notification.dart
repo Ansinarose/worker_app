@@ -27,7 +27,7 @@ class HomeNotificationsWidget extends StatelessWidget {
               .collection('worker_orders')
               .where('workerId', isEqualTo: currentUserId)
               .orderBy('forwardedAt', descending: true)
-              .limit(3)
+              .limit(2)
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {

@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, prefer_const_literals_to_create_immutables
+// ignore_for_file: use_build_context_synchronously, prefer_const_literals_to_create_immutables, avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -46,26 +46,23 @@ class SplashScreen extends StatelessWidget {
                   .get();
 
               if (workerDoc.exists) {
-                //print("Worker document exists");
-                //print("Worker data: ${workerDoc.data()}");
+                print("Worker document exists");
+                print("Worker data: ${workerDoc.data()}");
                 bool registrationAccepted = workerDoc['registrationAccepted'] ?? false;
-               // print("Registration accepted: $registrationAccepted");
+                print("Registration accepted: $registrationAccepted");
                 if (registrationAccepted) {
-                  //print("Navigating to HomeScreenWrapper");
+                  print("Navigating to HomeScreenWrapper");
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (context) => HomeScreenWrapper()));
                 } else {
-                 // print("Navigating to ConfirmationPage");
+                  print("Navigating to ConfirmationPage");
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (context) => ConfirmationPage()));
                 }
-              } else {
-               // print("Worker document does not exist, navigating to RegisterScreen");
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => RegisterScreen()));
-              }
+              } 
+             
             } catch (e) {
-              //print("Error fetching worker document: $e");
+              print("Error fetching worker document: $e");
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => RegisterScreen()));
             }
