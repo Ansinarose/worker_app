@@ -21,7 +21,7 @@ class AppButtonStyles {
       shadowColor: Colors.black.withOpacity(0.2),
       elevation: 5,
     ).copyWith(
-      overlayColor: MaterialStateProperty.all(Colors.black.withOpacity(0.1)),
+      overlayColor: WidgetStateProperty.all(Colors.black.withOpacity(0.1)),
     );
   }
 
@@ -43,7 +43,7 @@ class AppButtonStyles {
       shadowColor: Colors.black.withOpacity(0.2),
       elevation: 5,
     ).copyWith(
-      overlayColor: MaterialStateProperty.all(Colors.black.withOpacity(0.1)),
+      overlayColor: WidgetStateProperty.all(Colors.black.withOpacity(0.1)),
     );
   }
 
@@ -66,7 +66,7 @@ class AppButtonStyles {
       shadowColor: Colors.black.withOpacity(0.5), // Increasing shadow opacity
       elevation: 5,
     ).copyWith(
-      overlayColor: MaterialStateProperty.all(Colors.black.withOpacity(0.1)),
+      overlayColor: WidgetStateProperty.all(Colors.black.withOpacity(0.1)),
     );
   }
 
@@ -88,7 +88,7 @@ class AppButtonStyles {
       shadowColor: Colors.black.withOpacity(0.2),
       elevation: 5,
     ).copyWith(
-      overlayColor: MaterialStateProperty.all(Colors.black.withOpacity(0.1)),
+      overlayColor: WidgetStateProperty.all(Colors.black.withOpacity(0.1)),
     );
   }
 }

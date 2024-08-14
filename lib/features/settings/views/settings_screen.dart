@@ -6,7 +6,7 @@ import 'package:worker_application/bloc/bloc/app_bloc.dart';
 import 'package:worker_application/bloc/bloc/app_event.dart';
 import 'package:worker_application/common/constants/app_colors.dart';
 import 'package:worker_application/common/constants/app_text_styles.dart';
-import 'package:worker_application/features/about/views/about_page.dart';
+import 'package:worker_application/features/privacy_policy/views/privacy_plolicy_screen.dart';
 import 'package:worker_application/features/home/views/home_screen.dart';
 import 'package:worker_application/features/mywork/mywork_screen.dart';
 import 'package:worker_application/features/notification/notification_screen.dart';
@@ -68,8 +68,8 @@ class SettingsScreen extends StatelessWidget {
             icon: Icons.info,
             title: 'About',
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => AboutPage()));
+              // Navigator.of(context).push(MaterialPageRoute(
+              //     builder: (context) => AboutPage()));
             },
           ),
           _buildSettingsTile(

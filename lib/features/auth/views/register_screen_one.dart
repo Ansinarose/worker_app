@@ -66,101 +66,103 @@ class _RegisterScreenoneState extends State<RegisterScreenone> {
             title: '',
           ),
           backgroundColor: AppColors.scaffoldBackgroundcolor,
-          body: Padding(
-            padding: EdgeInsets.all(screenWidth * 0.04),
-            child: Form(
-              key: _formKey,
-              autovalidateMode: _autovalidateMode, // Set the autovalidate mode here
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: screenHeight * 0.05),
-                    Text('SignUp with Email', style: AppTextStyles.heading(context)),
-                    SizedBox(height: screenHeight * 0.02),
-                    CustomTextFormField(
-                      labelText: 'Name',
-                      controller: nameController,
-                      prefixIcon: Icons.person,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your Name';
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: screenHeight * 0.02),
-                    CustomTextFormField(
-                      labelText: 'Email',
-                      controller: emailController,
-                      prefixIcon: Icons.email,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your email';
-                        }
-                        if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                          return 'Please enter a valid email address';
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: screenHeight * 0.02),
-                    CustomTextFormField(
-                      labelText: 'Password',
-                      controller: passwordController,
-                      obscureText: true,
-                      prefixIcon: Icons.lock,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your password';
-                        }
-                        if (value.length < 6) {
-                          return 'Password must be at least 6 characters long';
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: screenHeight * 0.02),
-                    Row(
-                      children: [
-                        Text('Already have an account?  ', style: AppTextStyles.body(context)),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => LoginScreenWrapper()));
-                          },
-                          child: Text('Login', style: AppTextStyles.subheading(context)),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: screenHeight * 0.02),
-                    Center(
-                      child: TextButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            // Change the autovalidate mode to onUserInteraction
-                            setState(() {
-                              _autovalidateMode = AutovalidateMode.onUserInteraction;
-                            });
-                            // Handle signup logic here
-                            UserModel user = UserModel(
-                              name: nameController.text,
-                              email: emailController.text,
-                              password: passwordController.text,
-                            );
-                            authBloc.add(RegisterEvent(user: user));
-                          } else {
-                            // If form is not valid, set the autovalidate mode to onUserInteraction
-                            setState(() {
-                              _autovalidateMode = AutovalidateMode.onUserInteraction;
-                            });
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(screenWidth * 0.04),
+              child: Form(
+                key: _formKey,
+                autovalidateMode: _autovalidateMode, // Set the autovalidate mode here
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: screenHeight * 0.05),
+                      Text('SignUp with Email', style: AppTextStyles.heading(context)),
+                      SizedBox(height: screenHeight * 0.02),
+                      CustomTextFormField(
+                        labelText: 'Name',
+                        controller: nameController,
+                        prefixIcon: Icons.person,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your Name';
                           }
+                          return null;
                         },
-                        child: Text('SignUp'),
-                        style: AppButtonStyles.largeButton(context),
                       ),
-                    ),
-                  ],
+                      SizedBox(height: screenHeight * 0.02),
+                      CustomTextFormField(
+                        labelText: 'Email',
+                        controller: emailController,
+                        prefixIcon: Icons.email,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your email';
+                          }
+                          if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                            return 'Please enter a valid email address';
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: screenHeight * 0.02),
+                      CustomTextFormField(
+                        labelText: 'Password',
+                        controller: passwordController,
+                        obscureText: true,
+                        prefixIcon: Icons.lock,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your password';
+                          }
+                          if (value.length < 6) {
+                            return 'Password must be at least 6 characters long';
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: screenHeight * 0.02),
+                      Row(
+                        children: [
+                          Text('Already have an account?  ', style: AppTextStyles.body(context)),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => LoginScreenWrapper()));
+                            },
+                            child: Text('Login', style: AppTextStyles.subheading(context)),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: screenHeight * 0.02),
+                      Center(
+                        child: TextButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              // Change the autovalidate mode to onUserInteraction
+                              setState(() {
+                                _autovalidateMode = AutovalidateMode.onUserInteraction;
+                              });
+                              // Handle signup logic here
+                              UserModel user = UserModel(
+                                name: nameController.text,
+                                email: emailController.text,
+                                password: passwordController.text,
+                              );
+                              authBloc.add(RegisterEvent(user: user));
+                            } else {
+                              // If form is not valid, set the autovalidate mode to onUserInteraction
+                              setState(() {
+                                _autovalidateMode = AutovalidateMode.onUserInteraction;
+                              });
+                            }
+                          },
+                          child: Text('SignUp'),
+                          style: AppButtonStyles.largeButton(context),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -1,4 +1,4 @@
-// ignore_for_file: use_super_parameters, avoid_print, use_build_context_synchronously
+ // ignore_for_file: use_super_parameters, avoid_print, use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

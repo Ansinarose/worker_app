@@ -24,7 +24,7 @@ class SkipPageOne extends StatelessWidget {
               child: Container(
                 height: screenHeight * 0.5, // Adjust height based on screen height
                 width: screenWidth * 0.8, // Adjust width based on screen width
-                decoration: BoxDecoration(
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
                     image: AssetImage('assets/images/d6977a0d639a2ff2183e9df12823f974.jpg'),
                     fit: BoxFit.cover,
@@ -38,7 +38,7 @@ class SkipPageOne extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Text(
-                'Your all-in-one tool for seamless job management .Instant updates, and secure payments. Empowering you to focus on what you do best.',
+                'Your all-in-one tool for seamless job management. Instant updates, and secure payments. Empowering you to focus on what you do best.',
                 style: AppTextStyles.body(context),
               ),
             ),

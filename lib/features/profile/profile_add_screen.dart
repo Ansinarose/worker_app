@@ -72,7 +72,6 @@ class _ProfileAddScreenState extends State<ProfileAddScreen> {
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundcolor,
       appBar: AppBar(
-        title: Text('Profile Details'),
         backgroundColor: AppColors.textPrimaryColor,
       ),
       body: Padding(

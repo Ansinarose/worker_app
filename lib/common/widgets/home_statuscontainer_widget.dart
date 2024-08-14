@@ -1,5 +1,3 @@
-// ignore_for_file: unused_import, use_super_parameters
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worker_application/bloc/bloc/counter_bloc.dart';
@@ -68,12 +66,12 @@ class HomeStatusContainersWidget extends StatelessWidget {
       required int count,
       required Color color,
       required VoidCallback onTap}) {
-    return InkWell(
-      onTap: onTap,
-      child: SizedBox(
-        width: 120.0,
-        height: 150.0,
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
         child: Container(
+          height: 150.0,
+          margin: EdgeInsets.symmetric(horizontal: 4.0),
           padding: EdgeInsets.all(16.0),
           decoration: BoxDecoration(
             color: AppColors.textPrimaryColor,
@@ -87,9 +85,14 @@ class HomeStatusContainersWidget extends StatelessWidget {
               SizedBox(height: 8.0),
               Text(label, style: TextStyle(color: color)),
               SizedBox(height: 8.0),
-              Text(count.toString(),
-                  style: TextStyle(
-                      color: color, fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(
+                count.toString(),
+                style: TextStyle(
+                  color: color,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold
+                ),
+              ),
             ],
           ),
         ),
